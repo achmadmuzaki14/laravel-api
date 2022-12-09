@@ -27,6 +27,12 @@ Route::put('articles/{id}', [ArticleController::class, 'update']);
 Route::delete('articles/{id}', [ArticleController::class, 'delete']);
 // Route::delete('register', [RegisterController::class, 'register']);
 
+// Product
+Route::get('products', [ProductController::class, 'index']);
+Route::post('products', [ProductController::class, 'store']);
+Route::get('products/{id}', [ProductController::class, 'show']);
+Route::put('products/{id}', [ProductController::class, 'update']);
+Route::delete('products/{id}', [AProductController::class, 'delete']);
 
 //API route for register new user
 Route::post('/register', [AuthController::class, 'register']);
