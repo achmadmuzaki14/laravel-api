@@ -25,7 +25,8 @@ class UsersTableSeeder extends Seeder
         // will be too slow.
         $password = Hash::make('toptal');
 
-        User::create([
+        User::create(
+            [
             'name' => 'Administrator',
             'email' => 'admin@test.com',
             'password' => $password,
