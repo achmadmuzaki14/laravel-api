@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,9 +18,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.index');
 });
 
+Route::get('product/add', [ProductController::class, 'create'])->name('product.create');
+Route::post('product/', [ProductController::class, 'store'])->name('product.store');
+
+Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 // Route::get('articles', function() {
 //     // If the Content-Type and Accept headers are set to 'application/json', 
 //     // this will return a JSON structure. This will be cleaned up later.
@@ -47,3 +53,6 @@ Route::get('/', function () {
 // });
 
 // Route::post('register', 'Auth\RegisterController@register');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

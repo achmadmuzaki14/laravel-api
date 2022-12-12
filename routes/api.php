@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ProductApiController;
 use App\Http\Controllers\API\AuthController;
+// use App\Http\Controllers\API\ProductApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,11 +30,20 @@ Route::delete('articles/{id}', [ArticleController::class, 'delete']);
 // Route::delete('register', [RegisterController::class, 'register']);
 
 // Product
-Route::get('products', [ProductController::class, 'index']);
-Route::post('products', [ProductController::class, 'store']);
-Route::get('products/{id}', [ProductController::class, 'show']);
-Route::put('products/{id}', [ProductController::class, 'update']);
-Route::delete('products/{id}', [AProductController::class, 'delete']);
+Route::get('products', [ProductApiController::class, 'index']);
+Route::post('products', [ProductApiController::class, 'store']);
+Route::get('products/{id}', [ProductApiController::class, 'show']);
+Route::put('products/{id}', [ProductApiController::class, 'update']);
+Route::delete('products/{id}', [ProductApiController::class, 'delete']);
+
+// Profile
+Route::get('profile', [ProfileApiController::class, 'index']);
+Route::post('profile', [ProfileApiController::class, 'store']);
+Route::get('profile/{id}', [ProfileApiController::class, 'show']);
+Route::put('profile/{id}', [ProfileApiController::class, 'update']);
+Route::delete('profile/{id}', [ProfileApiController::class, 'delete']);
+
+// Route::get('products', [ProductApiController::class, 'index']);
 
 //API route for register new user
 Route::post('/register', [AuthController::class, 'register']);

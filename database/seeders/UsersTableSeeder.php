@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         // Let's clear the users table first
-        User::truncate();
+        // User::truncate();
 
         $faker = \Faker\Factory::create();
 
@@ -27,9 +27,9 @@ class UsersTableSeeder extends Seeder
 
         User::create(
             [
-            'name' => 'Administrator',
-            'email' => 'admin@test.com',
-            'password' => $password,
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => 'password',
         ]);
 
         // And now let's generate a few dozen users for our app:
@@ -37,6 +37,7 @@ class UsersTableSeeder extends Seeder
             User::create([
                 'name' => $faker->name,
                 'email' => $faker->email,
+                'role' => 'customer',
                 'password' => $password,
             ]);
         }

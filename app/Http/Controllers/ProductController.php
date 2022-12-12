@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,33 +14,95 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::all();
+        $product = Product::all();
+        return view('product.index', compact('product'));
     }
 
-    public function show(Product $product)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
     {
-        return $product;
+        return view('product.add');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        $product = Product::create($request->all());
-
-        return response()->json($article, 201);
+        Product::create([
+            'name' => $request->name,
+            'stok' => $request->stok,
+            'harga' => $request->harga,
+            'tahun' => $request->tahun
+        ]);
+        
+        return redirect()->to(route('product.index'));
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request, Product $product)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, Product $product)
     {
-        $product->update($request->all());
+        $data = [
+            'name' => $request->name,
+            'stok' => $request->stok,
+            'harga' => $request->harga,
+            'tahun' => $request->tahun
+        ];
 
-        return response()->json($product, 200);
+        if($product->update($data)){
+            return view('product.index');
+        } else{
+            echo "data gagal update";
+        }
+
+        
     }
 
-    public function delete(Product $product)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Product $product)
     {
-        $product->delete();
-
-        return response()->json(null, 204);
+        if($product->delete()){
+            return view('product.index');
+        }
     }
-
 }

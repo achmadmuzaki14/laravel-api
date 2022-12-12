@@ -49,4 +49,14 @@ class User extends Authenticatable
 
         return $this->api_token;
     }
+
+    public function product()
+    {
+        return $this->hasMany(Product::class, 'user_id');
+    }
+
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class);
+    }
 }

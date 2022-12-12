@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('stok');
-            $table->integer('harga');
+            $table->string('harga');
             $table->year('tahun');
             $table->timestamps();
         });
