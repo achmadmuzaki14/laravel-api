@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,13 +19,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layouts.index');
+    return view('layouts.base');
 });
 
-Route::get('product/add', [ProductController::class, 'create'])->name('product.create');
-Route::post('product/', [ProductController::class, 'store'])->name('product.store');
+// Route::get('product/add', [ProductController::class, 'create'])->name('product.create');
+// Route::post('product/', [ProductController::class, 'store'])->name('product.store');
 
-Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+// Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+
+
+// Product
+Route::get('products', [ProductController::class, 'index'])->name('product.index');
+Route::post('products', [ProductController::class, 'store'])->name('product.store');
+Route::get('products/{product}', [ProductController::class, 'show'])->name('product.show');
+Route::put('products/{product}', [ProductController::class, 'update'])->name('product.update');
+Route::delete('products/{product}', [ProductController::class, 'delete'])->name('product.delete');
+
+// Profile
+Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+Route::get('profile/edit/{profile}', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('profile', [ProfileController::class, 'store'])->name('profile.store');
+Route::get('profile/{profile}', [ProfileController::class, 'show'])->name('profile.show');
+Route::put('profile/{profile}', [ProfileController::class, 'update'])->name('profile.update');
+Route::delete('profile/{profile}', [ProfileController::class, 'delete'])->name('profile.delete');
 // Route::get('articles', function() {
 //     // If the Content-Type and Accept headers are set to 'application/json', 
 //     // this will return a JSON structure. This will be cleaned up later.

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -13,7 +15,10 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        // $profile = Profile::where('user_id', Auth::user()->id);
+        // dd($profile);
+        $user = Auth::user()->id;
+        return view('profile.index', compact('user'));
     }
 
     /**
@@ -23,7 +28,7 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+        return view('profile.add');
     }
 
     /**
@@ -34,7 +39,16 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Profile::create([
+            'address' => $request->address,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
+            'phone_number' => $request->phone_number,
+            'user_id' => Auth::user()->id
+        ]);
+        
+        // dd($request->all());
+        return redirect()->to(route('product.index'));
     }
 
     /**
@@ -43,9 +57,10 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $data = Profile::all()->where('user_id', Auth::user()->id)->first();
+        return view('profile.show', compact('data'));
     }
 
     /**
@@ -54,9 +69,12 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        // dd(Auth::user()->id);
+        
+        // dd($user);
+        return view('profile.edit');
     }
 
     /**
@@ -66,9 +84,20 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Profile $profile)
     {
-        //
+        $data = [
+            'address' => $request->address,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
+            'prhone_number' => $request->phone_number
+        ];
+
+        if($profile->update($data)){
+            return view('product.index');
+        } else{
+            echo "data gagal update";
+        }
     }
 
     /**
