@@ -3,8 +3,10 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProductApiController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\ProfileApiController;
 // use App\Http\Controllers\API\ProductApiController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,16 +34,16 @@ Route::delete('articles/{id}', [ArticleController::class, 'delete']);
 // Product
 Route::get('products', [ProductApiController::class, 'index']);
 Route::post('products', [ProductApiController::class, 'store']);
-Route::get('products/{id}', [ProductApiController::class, 'show']);
-Route::put('products/{id}', [ProductApiController::class, 'update']);
-Route::delete('products/{id}', [ProductApiController::class, 'delete']);
-
+Route::get('products/{product}', [ProductApiController::class, 'show']);
+Route::put('products/{product}', [ProductApiController::class, 'update']);
+Route::delete('products/{product}', [ProductApiController::class, 'delete']);
+ 
 // Profile
 Route::get('profile', [ProfileApiController::class, 'index']);
 Route::post('profile', [ProfileApiController::class, 'store']);
-Route::get('profile/{id}', [ProfileApiController::class, 'show']);
-Route::put('profile/{id}', [ProfileApiController::class, 'update']);
-Route::delete('profile/{id}', [ProfileApiController::class, 'delete']);
+Route::get('profile/{profile}', [ProfileApiController::class, 'show']);
+Route::put('profile/{profile}', [ProfileApiController::class, 'update']);
+Route::delete('profile/{profile}', [ProfileApiController::class, 'delete']);
 
 // Route::get('products', [ProductApiController::class, 'index']);
 
@@ -50,15 +52,20 @@ Route::post('/register', [AuthController::class, 'register']);
 //API route for login user
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::get('/profile', [ProfileApiController::class, 'index'])->name('profile.api.index');
+
 //Protecting Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/profile', function(Request $request) {
-        return auth()->user();
-    });
+    // Route::get('/profile', function(Request $request) {
+    //     return auth()->user();
+    // });
+    
 
     // API route for logout user
     Route::post('/logout', [AuthController::class, 'logout']);
 });
+
+// Auth::routes();
 
 // Route::get('articles', 'ArticleController@index');
 // Route::get('articles/{id}', 'ArticleController@show');

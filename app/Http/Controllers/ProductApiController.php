@@ -20,7 +20,7 @@ class ProductApiController extends Controller
 
     public function show(Product $product)
     {
-        return $product;
+        return Product::all();
     }
 
     public function store(Request $request)

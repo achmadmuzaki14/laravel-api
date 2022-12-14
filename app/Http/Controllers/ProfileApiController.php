@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileApiController extends Controller
 {
@@ -19,7 +20,7 @@ class ProfileApiController extends Controller
 
     public function show(Profile $profile)
     {
-        return $profile;
+        return Profile::where('user_id', 12)->first();
     }
 
     public function store(Request $request)

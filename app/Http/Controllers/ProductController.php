@@ -65,7 +65,9 @@ class ProductController extends Controller
      */
     public function edit(Request $request, Product $product)
     {
-        //
+        return view('product.edit', [
+            'product' => $product
+        ]);
     }
 
     /**
@@ -85,7 +87,7 @@ class ProductController extends Controller
         ];
 
         if($product->update($data)){
-            return view('product.index');
+            return redirect()->route('product.index');
         } else{
             echo "data gagal update";
         }
@@ -102,7 +104,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         if($product->delete()){
-            return view('product.index');
+            return redirect()->route('product.index');
         }
     }
 }

@@ -31,9 +31,11 @@ Route::get('/', function () {
 // Product
 Route::get('products', [ProductController::class, 'index'])->name('product.index');
 Route::post('products', [ProductController::class, 'store'])->name('product.store');
+Route::get('products/add', [ProductController::class, 'create'])->name('product.create');
 Route::get('products/{product}', [ProductController::class, 'show'])->name('product.show');
+Route::get('products/edit/{product}', [ProductController::class, 'edit'])->name('product.edit');
 Route::put('products/{product}', [ProductController::class, 'update'])->name('product.update');
-Route::delete('products/{product}', [ProductController::class, 'delete'])->name('product.delete');
+Route::delete('products/delete/{product}', [ProductController::class, 'destroy'])->name('product.delete');
 
 // Profile
 Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
@@ -41,7 +43,7 @@ Route::get('profile/edit/{profile}', [ProfileController::class, 'edit'])->name('
 Route::post('profile', [ProfileController::class, 'store'])->name('profile.store');
 Route::get('profile/{profile}', [ProfileController::class, 'show'])->name('profile.show');
 Route::put('profile/{profile}', [ProfileController::class, 'update'])->name('profile.update');
-Route::delete('profile/{profile}', [ProfileController::class, 'delete'])->name('profile.delete');
+Route::delete('profile/{profile}', [ProfileController::class, 'destroy'])->name('profile.delete');
 // Route::get('articles', function() {
 //     // If the Content-Type and Accept headers are set to 'application/json', 
 //     // this will return a JSON structure. This will be cleaned up later.

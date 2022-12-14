@@ -13,6 +13,7 @@
                 <th>Stok Barang</th>
                 <th>Harga Barang</th>
                 <th>Tahun</th>
+                <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -23,6 +24,14 @@
                         <td>{{ $item->stok }}</td>
                         <td>{{ $item->harga }}</td>
                         <td>{{ $item->tahun }}</td>
+                        <td>
+                          <a href="/products/edit/{{ $item->id }}" class="btn btn-warning">Edit</a>
+                          <form action="{{ route('product.delete', $item->id) }}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                        </form>
+                        </td>
                     </tr>
                 @endforeach
           </tbody>
